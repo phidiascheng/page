@@ -1,3 +1,33 @@
 <!DOCTYPE html>
-hello world test
+<html>
+<body>
+
+<p>test</p>
+<hr/>
+<p id="demo"></p>
+<hr/>
+<p id="demoo"></p>
+<hr/>
+<p id="demon"></p>
+<script>
+    var req = new XMLHttpRequest();
+    req.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("demo").innerText = this.responseText;
+        }
+    };
+    req.onload = function(){
+    const json = JSON.parse(req.responseText);
+    document.getElementById('demoo').innerText = JSON.stringify(json);
+    document.getElementById('demon').innerHTML = json.blogs[2].title;
+    };
+    
+//    req.open("GET", "https://raw.githubusercontent.com/phidiascheng/filestore/refs/heads/main/data.json", true);
+    req.open("GET", "data.json", true);
+    req.send();
+
+</script>
+
+</body>
 </html>
+    
