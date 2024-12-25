@@ -11,9 +11,14 @@ router.get('/', (req, res) => {
         'hello':'hi'
     })
 });
+router.get('/about', (req, res) => {
+    res.json({
+        'hello':'about'
+    })
+});
+
 
 app.use('/.netlify/functions/apis',router);
-app.use('/',router);
 
 module.exports.handler = serverless(app);
 
