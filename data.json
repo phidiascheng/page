@@ -7,12 +7,12 @@
     },
     {
         "title":"第二篇" , 
-        "body":"这是第二篇文章",
+        "body":"<p style='color:red;'>I am red</p>",
         "date":"12-2"
     },
     {
         "title":"第三篇" , 
-        "body":"这是第三篇文章",
+        "body":"<p style=\"color:blue;\">I am blue</p>",
         "date":"12-2"
     }
     ]
