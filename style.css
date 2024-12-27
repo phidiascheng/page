@@ -1,42 +1,58 @@
 * {
     box-sizing: border-box;
+    --columnSpace: 20px;
 }
+
 
 body {
     font-family: Arial;
-    padding: 20px;
+    padding: var(--columnSpace);
     background: #f1f1f1;
 }
 
 .header {
-    padding: 30px;
-    font-size: 40px;
+    padding: var(--columnSpace);
+    font-size: 20px;
     text-align: center;
     background: white;
 }
 
+.row{
+    display: flex;
+}
+
+.page{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding:  var(--columnSpace);
+}
+
+
 .leftcolumn {   
-    float: left;
+/*    float: left;*/
     width: 75%;
 }
 
 .rightcolumn {
-    float: left;
+/*    float: left;*/
     width: 25%;
-    padding-left: 20px;
+    padding-left: var(--columnSpace);
 }
 
 .fakeimg {
     background-color: #aaa;
     width: 100%;
-    padding: 20px;
+    padding: var(--columnSpace);
 }
 
 /* Add a card effect for articles */
 .card {
+    display: block;
     background-color: white;
-    padding: 20px;
-    margin-top: 20px;
+    padding: var(--columnSpace);
+    margin-top: var(--columnSpace);
+    border-radius: 10px;
  }
 
 /* Clear floats after the columns */
@@ -48,10 +64,10 @@ body {
 
 /* Footer */
 .footer {
-    padding: 20px;
+    padding: var(--columnSpace);
     text-align: center;
     background: #ddd;
-    margin-top: 20px;
+    margin-top: var(--columnSpace);
   }
 
   @media screen and (max-width: 800px) {

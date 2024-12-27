@@ -10,19 +10,10 @@
         <h2>Cheng's Blog</h2>
     </div>
 
-
     <div class="row">
 
         <div class="leftcolumn" id="blogsContent">
-<!--        <div class="card" >
-                <h2>TITLE HEADING</h2>
-                <h5>Title description, Dec 7, 2017</h5>
-                <div class="fakeimg" style="height:200px;">Image</div>
-                <p>Some text..</p>
-                <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-            </div>
--->
-            </div>
+        </div>
 
         <div class="rightcolumn">
             <div class="card">
@@ -45,32 +36,88 @@
         </div>
     </div>
 
-        <div class="footer">
-            <h2>Footer</h2>
-        </div>
+<!--    
+    <div class="footer">
+        <h2>Footer</h2>
+    </div>
+-->
 
 <script>
+
+    var json;
+    const postPerPage = 10;
+    var length;
+
     var req = new XMLHttpRequest();
     req.open("GET", "data.json", true);
     req.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            const json = JSON.parse(this.responseText);
-
-            text = ""
-            for (let i = 0; i < json.blogs.length; i++) {
-                text += "<div class=\"card\"";
-                text += "<h2>" + json.blogs[i].title +"</h2>";
-                text += "<h5>" + json.blogs[i].date +"</h5>";
-                text += "<p>" + json.blogs[i].body + "</p>";
-                text += "</div>"
-            }
+            json = JSON.parse(this.responseText);
+            length = json.blogs.length;
+            var start = 0;
+            var end = 0
+            if (length <= postPerPage) { end = length;}
+            else {  end = postPerPage; }
+            text = findPassages(start,end);
+            text += pageList(0);
             document.getElementById("blogsContent").innerHTML = text;
-
         }
     };
     req.send();
 
-    
+
+function findPassages(start,end){
+    text = "";
+    for (let i = start; i < end; i++) {
+        text += `<div class="card">`;
+        text += `<div style="cursor:pointer;" onclick="showPassage(${i})"> ${i+1}  ${json.blogs[i].title} </div>`;
+        text += `<div class="body"><h5> ${json.blogs[i].date} </h5>`;
+        text += `<p> ${json.blogs[i].body} </p></div>`;
+        text += `</div>`
+    }
+    return text;
+}
+
+function pageList(p){
+    text = `<div class="page">`;
+    for (let i = 0; i < Math.ceil(length/postPerPage); i++){
+        var underline = "none";
+        if (i == p){
+            underline = "underline";;
+        }
+        text += `<div style="width: 30px; height: 20px; cursor: pointer; text-decoration-line: ${underline};" onclick="updatePageList(${i})">[${i}]</div>`;
+    }
+    text += `共 ${length} 篇</div>`;
+    return text;
+}
+
+function updatePageList(i){
+    var start = i*postPerPage;
+    var end = (i+1)*postPerPage;
+    if((i+1)*postPerPage >=length){
+        end = length;
+    }
+    text = findPassages(start,end);
+    text += pageList(i);
+    document.getElementById("blogsContent").innerHTML = text;
+}
+
+function showPassage(i){
+    text = `<div class="card">`;
+    text += `<div> ${i+1}  ${json.blogs[i].title} </div>`;
+    text += `<div class="body"><h5> ${json.blogs[i].date} </h5>`;
+    text += `<p> ${json.blogs[i].body} </p></div>`;
+    text += `</div>`;
+    text += backToList();
+    document.getElementById("blogsContent").innerHTML = text;
+}
+
+function backToList(){
+    text = `<div class="page">`;
+    text += `<div style="width: 30px; height: 20px; cursor: pointer;" onclick="updatePageList(0)">[back]</div>`;
+    return text;
+}
+
 </script>
 
 
