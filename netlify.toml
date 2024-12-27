@@ -1,6 +1,12 @@
 [build]
     functions = "functions"
 
+[functions]
+    directory = "functions"
+    included_files = ["data.json"]
+
 [[redirects]]
+    force = true
     from = "/api/*"
-    to = "/.netlify/functions/:splat"
+    status = 200
+    to = "/.netlify/functions/apis/:splat"

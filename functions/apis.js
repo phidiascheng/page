@@ -1,9 +1,6 @@
 const express = require('express');
-
 const serverless = require('serverless-http');
-
 const app = express();
-
 const router = express.Router();
 
 router.get('/', (req, res) => {
@@ -18,8 +15,7 @@ router.get('/about', (req, res) => {
 });
 
 
-app.use('/.netlify/functions/apis',router);
-
+app.use('/api/',router);
 module.exports.handler = serverless(app);
 
 

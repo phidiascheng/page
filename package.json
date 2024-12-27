@@ -2,7 +2,7 @@
     "name": "netlify_nodejs",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
+    "main": "index.html",
     "scripts": {
         "build": "netlify deploy --prod"
     },
