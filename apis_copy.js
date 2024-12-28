@@ -1,6 +1,6 @@
 const express = require('express');
 const serverless = require('serverless-http');
-const json = require('../data.json')
+const json = require('./data.json')
 
 const app = express();
 const router = express.Router();
