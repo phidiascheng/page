@@ -75,8 +75,7 @@ function loadPassage(i){
                 text += `</div>`
             }
             text += `<div class="page">`;
-//            text += `<div style="width: 30px; height: 20px; cursor: pointer;" onclick="loadList(${Math.floor(i/json.单页长度)})">[back]</div></div>`;
-            text += `<div style="width: 30px; height: 20px;"><a href="/api/about">[back]</a></div></div>`;
+            text += `<div style="width: 30px; height: 20px; cursor: pointer;" onclick="loadList(${Math.floor(i/json.单页长度)})">[back]</div></div>`;
             document.getElementById("blogsContent").innerHTML = text;
         }
     };
@@ -96,7 +95,7 @@ function pageList(p,length,postPerPage){
         if (i == p){
             underline = "underline";
         }
-        text += `<div style="width: 30px; height: 20px; cursor: pointer; text-decoration-line: ${underline};"><a href="/bloglist?p=${i}">[${i}]</a></div>`;
+        text += `<div style="width: 30px; height: 20px; cursor: pointer; text-decoration-line: ${underline};" onclick="loadList(${i})">[${i}]</div>`;
     }
     text += `共 ${length} 篇</div>`;
     return text;
