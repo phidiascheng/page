@@ -3,7 +3,6 @@ const serverless = require('serverless-http');
 const json = require('../data.json')
 
 const app = express();
-app.set('view engine', 'ejs');
 const router = express.Router();
 
 
@@ -11,9 +10,6 @@ router.get('/about', (req, res) => {
     res.json({
         'hello':'about'
     })
-});
-router.get('/test', (req, res) => {
-    res.send(json.blogs[0].title);
 });
 
 router.get('/index', (req, res) => {
@@ -47,6 +43,21 @@ router.get('/bloglist', (req, res) => {
     }
     res.json(resJason);
 });
+
+var head = `<head><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" type="text/css" href="../style.css"></head>`;
+
+var header = `<div class="header"><h2>Cheng's Blog</h2></div>`;
+
+var body = `<body>`+header+`</body>`;
+
+var html = `<!DOCTYPE html><html>`+head+body+`</html>`;
+
+router.get('/test', (req, res) => {
+    res.send(html);
+});
+
+
+
 
 app.use('/api/',router);
 module.exports.handler = serverless(app);
