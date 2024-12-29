@@ -3,6 +3,7 @@ const serverless = require('serverless-http');
 const json = require('../data.json')
 
 const app = express();
+app.set("view engine", "ejs");
 const router = express.Router();
 
 
@@ -56,6 +57,9 @@ router.get('/test', (req, res) => {
     res.send(html);
 });
 
+router.get('/testx', (req, res) => {
+    res.render("test",{name:"cheng"});
+});
 
 
 
