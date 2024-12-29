@@ -1,6 +1,6 @@
 const express = require('express');
 const serverless = require('serverless-http');
-const json = require('../data.json')
+const json = require('../data/data.json')
 
 const app = express();
 app.set("view engine", "ejs");
@@ -63,7 +63,8 @@ router.get('/testx', (req, res) => {
 
 
 
-app.use('/api/',router);
+//app.use('/api/',router);
+app.use('/',router);
 module.exports.handler = serverless(app);
 
 

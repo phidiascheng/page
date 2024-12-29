@@ -1,26 +1,18 @@
 const express = require('express');
-const serverless = require('serverless-http');
-const json = require('./data.json')
+const json = require('../data/data.json')
 
-const app = express();
 const router = express.Router();
 
-router.get('/', (req, res) => {
-    res.json({
-        'hello':'hi'
-    });
-});
+
 router.get('/about', (req, res) => {
     res.json({
         'hello':'about'
     })
 });
-router.get('/test', (req, res) => {
-    res.send(json.blogs[0].title);
-});
 
 router.get('/index', (req, res) => {
-
+    var test = "dsds";
+    res.json({"hello":`${test}`});
 });
 
 router.get('/blogs', (req, res) => {
@@ -50,20 +42,14 @@ router.get('/bloglist', (req, res) => {
     res.json(resJason);
 });
 
-var head = `
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="style.css">
-</head>`;
 
-var header = `
-    <div class="header">
-        <h2>Cheng's Blog</h2>
-    </div>`;
+router.get('/testx', (req, res) => {
+    res.render("test",{name:"cheng"});
+});
 
 
+router.get('/', (req, res) => {
+    res.render('test',{name:"cheng"});
+});
 
-app.use('/api/',router);
-module.exports.handler = serverless(app);
-
-
+module.exports = router;
