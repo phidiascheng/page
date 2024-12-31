@@ -3,7 +3,6 @@
     --columnSpace: 20px;
 }
 
-
 body {
     font-family: Arial;
     padding: var(--columnSpace);
@@ -32,23 +31,16 @@ body {
 }
 
 .leftcolumn {   
-/*    float: left;*/
+    float: left;
     width: 75%;
 }
 
 .rightcolumn {
-/*    float: left;*/
+    float: left;
     width: 25%;
     padding-left: var(--columnSpace);
 }
 
-.fakeimg {
-    background-color: #aaa;
-    width: 100%;
-    padding: var(--columnSpace);
-}
-
-/* Add a card effect for articles */
 .card {
     display: block;
     background-color: white;
@@ -76,41 +68,30 @@ body {
   padding: 0px;
 }
 
-/* Clear floats after the columns */
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
+a:link { 
+  text-decoration: none; 
+  color: black;
+} 
+a:visited { 
+  text-decoration: none; 
+  color: black;
+} 
+a:hover { 
+  text-decoration: none; 
+  color: black;
+} 
+a:active { 
+  text-decoration: none; 
+  color: black;
+}
 
-/* Footer */
-.footer {
-    padding: var(--columnSpace);
-    text-align: center;
-    background: #ddd;
-    margin-top: var(--columnSpace);
-  }
-
-  @media screen and (max-width: 1080px) {
+@media screen and (max-width: 1080px) {
     .leftcolumn, .rightcolumn {   
       width: 100%;
       padding: 0;
     }
+    .row{
+      display: block;
+    }
   }
 
-  a:link { 
-    text-decoration: none; 
-    color: black;
-  } 
-  a:visited { 
-    text-decoration: none; 
-    color: black;
-  } 
-  a:hover { 
-    text-decoration: none; 
-    color: black;
-  } 
-  a:active { 
-    text-decoration: none; 
-    color: black;
-  }
