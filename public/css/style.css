@@ -66,8 +66,14 @@ body {
   padding: 0px;
 }
 
+.bodylist p{
+  margin: 0px;
+  padding: 0px;
+}
+
 .bodypassage p{
-  margin: 0;
+  margin: 0px;
+  padding: 0px;
 }
 
 /* Clear floats after the columns */
