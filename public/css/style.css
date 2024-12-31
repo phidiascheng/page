@@ -9,8 +9,12 @@ body {
     background: #f1f1f1;
     display: flex;
     justify-content: center;
-    padding: 0;
+    padding: 10px;
     margin: 0;
+}
+
+.container{
+  width: 1080px;
 }
 
 .header {
@@ -86,12 +90,15 @@ a:active {
 }
 
 @media screen and (max-width: 1080px) {
-    .leftcolumn, .rightcolumn {   
+    .leftcolumn{   
       width: 100%;
       padding: 0;
+    }
+    .rightcolumn {
+      width: 270px;
+      padding: 0px;
     }
     .row{
       display: block;
     }
   }
-
