@@ -26,12 +26,14 @@ body {
     padding: var(--columnSpace);
     font-size: 20px;
     text-align: center;
-    background: #95e1d3;
+/*    background: #95e1d3;*/
+    background: LightSkyBlue;
 }
 
 h3{
   padding: 0px;
   margin: 10px 0 15px 0;
+  font-weight:normal;
 }
 
 h5{
