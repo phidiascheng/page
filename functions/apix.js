@@ -1,55 +1,58 @@
 const express = require('express');
 const json = require('../data/data.json')
-
 const router = express.Router();
+module.exports = router;
+
+var postPerPage = 10;
+var pageEnd = Math.ceil(json.blogs.length/postPerPage);
 
 
-router.get('/about', (req, res) => {
-    res.json({
-        'hello':'about'
-    })
-});
-
-router.get('/index', (req, res) => {
-    var test = "dsds";
-    res.json({"hello":`${test}`});
-});
-
-router.get('/blogs', (req, res) => {
-    var start = req.query.s;
-    var end = req.query.e;
-    if (end >=json.blogs.length){
-        end = json.blogs.length;
+router.get('/blog', (req, res) => {
+    var p = parseInt(req.query.p);
+    var passageID = p;
+    var plist = Math.floor(passageID/postPerPage);
+    setting = {
+        json:json,
+        passageID:passageID,
+        plist:plist,
     }
-    resJason =  {"总长":json.blogs.length,"当前位置":parseInt(start),"单页长度":10,"blogs": []};
-    for (let i = start; i<end; i++){
-        resJason.blogs.push(json.blogs[i]);
-    }
-    res.json(resJason);
+    res.render('loadPassage',setting);
 });
 
 router.get('/bloglist', (req, res) => {
-    var p = req.query.p;
-    var start = p*10;
-    var end = (p+1)*10;
-    if (end >=json.blogs.length){
-        end = json.blogs.length;
+    var p = parseInt(req.query.p);
+    var passageStart = p*10;
+    var passageEnd = (p+1)*10;
+    if (passageEnd > json.blogs.length){
+        passageEnd = json.blogs.length;
     }
-    resJason =  {"总长":json.blogs.length,"当前位置":parseInt(start),"单页长度":10,"blogs": []};
-    for (let i = start; i<end; i++){
-        resJason.blogs.push(json.blogs[i]);
+    setting = {
+        json:json,
+        passageStart:passageStart,
+        passageEnd:passageEnd,
+        pageEnd:pageEnd,
+        postPerPage:postPerPage
     }
-    res.json(resJason);
+    res.render('loadList',setting);
 });
 
-
-router.get('/testx', (req, res) => {
-    res.render("test",{name:"cheng"});
-});
 
 
 router.get('/', (req, res) => {
-    res.render('test',{name:"cheng"});
+    var passageStart = 0;
+    var passageEnd = postPerPage;
+    if (json.blogs.length < postPerPage){
+        passageEnd = json.blogs.length;
+    }
+    var page = 0;
+    setting = {
+        json:json,
+        passageStart:passageStart,
+        passageEnd:passageEnd,
+        pageEnd:pageEnd,
+        postPerPage:postPerPage
+    }
+    res.render('loadList',setting);
 });
 
-module.exports = router;
+

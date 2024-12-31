@@ -1,0 +1,17 @@
+<div class="page" style="padding: 0 0 0 15px;">
+    <% for (let i = 0; i < pageEnd; i++) { %>
+    <% if (i * postPerPage == passageStart ) {txt="underline"} else {txt="none"} %>
+    <div style="cursor: pointer; text-decoration-line: <%= txt %>;">
+        <a text-decoration-line: none; href="/bloglist?p=<%= i %>">[<%= i+1 %>]</a>
+    </div>
+    <% } %>
+    <% next = passageStart/postPerPage + 1; past = passageStart/postPerPage - 1;%>
+    <% if ( next == pageEnd ) {next = pageEnd - 1} %>
+    <% if ( past < 0 ) {past = 0} %>
+    <div style="cursor: pointer;">
+        <a text-decoration-line: none; href="/bloglist?p=<%= past %>">前一页</a>
+    </div>
+    <div style="cursor: pointer;">
+        <a text-decoration-line: none; href="/bloglist?p=<%= next %>">下一页</a>
+    </div>
+</div>

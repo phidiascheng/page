@@ -1,0 +1,11 @@
+<div class="leftcolumn">
+
+    <div class="card">
+        <div><%= passageID+1%> <%=json.blogs[passageID].title%></div>
+        <div class="body">
+            <h5><%=json.blogs[passageID].date%></h5>
+            <p><%=json.blogs[passageID].body%></p>
+        </div>
+    </div>
+    <%- include ('backtolist.ejs') %>
+</div>
