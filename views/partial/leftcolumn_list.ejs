@@ -3,7 +3,7 @@
 
     <% for (let i = passageStart; i < passageEnd; i++) { %>
         <div class="card">
-            <div style="cursor:pointer;"><a href="/blog?p=<%= i%>"><!--<%= i+1%>--> <%=json.blogs[i].title%></a></div>
+            <div style="cursor:pointer;"><a href="/blog?p=<%= i%>"><h3><%=json.blogs[i].title%></h3></a></div>
             <% cardID = "cardID"+i %>
             <div id="<%= cardID %>" class="bodylist">
                 <h5><%= json.blogs[i].date%></h5>
