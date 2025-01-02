@@ -26,8 +26,20 @@ body {
     padding: var(--columnSpace);
     font-size: 20px;
     text-align: center;
-/*    background: #95e1d3;*/
-    background: LightSkyBlue;
+    background: white;
+}
+
+.subheader{
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  color: gray;
+}
+
+.subheader div{
+  width: 80px;
+  cursor: pointer;
 }
 
 h3{
@@ -38,7 +50,7 @@ h3{
 
 h5{
   margin-top: 0;
-  margin-bottom: 15px;
+  margin-bottom: 0;
   font-weight:normal;
 }
 
@@ -54,13 +66,12 @@ h5{
 
 .leftcolumn {   
     float: left;
-    width: 75%;
+    width: 100%;
 }
 
 .rightcolumn {
     float: left;
-    width: 25%;
-    padding-left: var(--columnSpace);
+    width: 100%;
 }
 
 .card {
@@ -81,12 +92,17 @@ h5{
 }
 
 .bodylist p{
-  margin: 0px;
-  padding: 0px;
+  margin-top: 0px;
+  padding: 0;
 }
 
 .bodypassage p{
-  margin: 0px;
+  margin-top: 0px;
+  padding: 0px;
+}
+
+.body p{
+  margin-top: 0px;
   padding: 0px;
 }
 
@@ -112,8 +128,9 @@ a:active {
       width: 100%;
       padding: 0;
     }
+    
     .rightcolumn {
-      display: inline-block;
+      display: none;
       width: 100%;
       padding: 0px;
     }

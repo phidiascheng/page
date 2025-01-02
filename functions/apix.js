@@ -55,4 +55,8 @@ router.get('/', (req, res) => {
     res.render('loadList',setting);
 });
 
+router.get('/about', (req, res) => {
+    res.render('about');
+});
+
 
