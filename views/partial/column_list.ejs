@@ -1,0 +1,17 @@
+<div class="column">
+    <script src="js/scripts.js" type="text/javascript"></script>
+
+    <% for (let i = passageStart; i < passageEnd; i++) { %>
+        <div class="card">
+            <div class="titleLink"><a href="/blog?p=<%= i%>"><h3><%=json.blogs[i].title%></h3></a></div>
+            <% cardID = "cardID"+i %>
+            <div>
+                <div class="date"><h5><%= json.blogs[i].date%></h5></div>
+                <div id="<%= cardID %>" class="bodylist"><%- json.blogs[i].body%></div>
+            </div>
+            <div class="showmore" para="<%= cardID%>" onclick="showmore(this)">..展开..
+            </div>
+        </div>
+    <% } %>
+    <%- include ('pagelist.ejs') %>
+</div>

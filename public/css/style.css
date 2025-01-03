@@ -8,6 +8,12 @@
     --columnSpace: 10px;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  padding: 0px;
+  margin: 0px;
+  font-weight:normal;
+}
+
 body {
     font-family: Arial, Helvetica;
     padding: var(--columnSpace);
@@ -18,18 +24,23 @@ body {
     margin: 0;
 }
 
-.container{
-  width: 1080px;
-}
+.container{ width: 1080px;}
 
+/**/
+/*////  以下是设置header ////////////////////*/
+/**/
 .header {
-    padding: var(--columnSpace);
-    font-size: 20px;
+    height: 120px;
     text-align: center;
-    background: white;
+    background-image: url('/img/header-background.jpg');
+}
+.header .title{
+  padding: 30px 0 15px 0;
+  font-size: 36px;
 }
 
-.subheader{
+.header .subheader{
+  font-size: 18px;
   display: flex;
   justify-content: center;
   margin: 0;
@@ -42,69 +53,84 @@ body {
   cursor: pointer;
 }
 
-h3{
-  padding: 0px;
-  margin: 10px 0 15px 0;
-  font-weight:normal;
-}
-
-h5{
-  margin-top: 0;
-  margin-bottom: 0;
-  font-weight:normal;
-}
+/**/
+/*////  以下是设置mainbody ////////////////////*/
+/**/
 
 .row{
-    display: flex;
+  display: flex;
 }
 
-.page, .page div {
-    display: flex;
-    align-items: center;
-    padding: 10px 5px;
-}
-
-.leftcolumn {   
-    float: left;
-    width: 100%;
-}
-
-.rightcolumn {
-    float: left;
-    width: 100%;
+.column{
+  width: 100%;
+  display: block;
 }
 
 .card {
-    display: block;
-    background-color: white;
-    padding: var(--columnSpace);
-    margin-top: var(--columnSpace);
-    border-radius: 2px;
- }
+  display: block;
+  background-color: white;
+  padding: var(--columnSpace);
+  margin-top: var(--columnSpace);
+  border-radius: 2px;
+}
+
+.titleLink{
+  cursor:pointer;
+}
 
 .bodylist{
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 30;
   -webkit-box-orient: vertical;
   padding: 0px;
 }
 
-.bodylist p{
+.date{
+  margin: 5px 0 15px 0;
+}
+
+.showmore{
+  display: inline-block; 
+  margin-top: 20px; 
+  color: gray; 
+  font-size: 12px; 
+  cursor: pointer;
+}
+
+
+p{
   margin-top: 0px;
   padding: 0;
+  line-height: 1.8em;
 }
 
-.bodypassage p{
-  margin-top: 0px;
-  padding: 0px;
+/**/
+/*////  以下是设置pagelist ////////////////////*/
+/**/
+
+.page, .page div {
+    display: flex;
+    align-items: center;
+    padding: 10px 5px;
+  }
+
+.page div{
+  cursor: pointer; 
 }
 
-.body p{
-  margin-top: 0px;
-  padding: 0px;
+/**/
+/*////  以下是设置about list ////////////////////*/
+/**/
+
+.about{
+  margin-top: 10px;
 }
+
+/**/
+/*////  以下是设置about list ////////////////////*/
+/**/
 
 a:link { 
   text-decoration: none; 
@@ -130,7 +156,6 @@ a:active {
     }
     
     .rightcolumn {
-      display: none;
       width: 100%;
       padding: 0px;
     }

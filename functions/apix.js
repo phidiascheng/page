@@ -56,7 +56,10 @@ router.get('/', (req, res) => {
 });
 
 router.get('/about', (req, res) => {
-    res.render('about');
+    res.render('loadAbout');
 });
 
+router.get('/bishun', (req, res) => {
+    res.render('partial/bishun');
+});
 
