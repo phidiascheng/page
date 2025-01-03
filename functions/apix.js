@@ -1,6 +1,7 @@
 const express = require('express');
 const json = require('../data/data.json')
 const router = express.Router();
+const path = require('path')
 module.exports = router;
 
 var postPerPage = 10;
@@ -62,4 +63,3 @@ router.get('/about', (req, res) => {
 router.get('/bishun', (req, res) => {
     res.render('partial/bishun');
 });
-
