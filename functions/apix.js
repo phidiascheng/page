@@ -2,6 +2,7 @@ const express = require('express');
 const json = require('../data/data.json')
 const router = express.Router();
 const path = require('path');
+const url = require('url')
 module.exports = router;
 
 var postPerPage = 10;
@@ -71,3 +72,14 @@ router.get('/pdfsheets', (req, res) => {
 router.get('/b', (req, res) => {
     res.sendFile(path.join(__dirname,'../public/htmls','/bishunsheet.html',));
 });
+
+
+router.get('/hanzi', (req, res) => {
+    var queryData = url.parse(req.url, true).query;
+    char = queryData.char;
+    const HanziService = require('./hanziwriter');
+    var data = HanziService.getchar(char);
+    console.log(data);
+    res.json(data);
+});
+
