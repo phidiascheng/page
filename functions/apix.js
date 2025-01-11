@@ -77,8 +77,8 @@ router.get('/b', (req, res) => {
 router.get('/hanzi', (req, res) => {
     var queryData = url.parse(req.url, true).query;
     char = queryData.char;
-    const HanziService = require('./hanziwriter');
-    var data = HanziService.getchar(char);
+    const a = '../data/hanziwriterdata/'+char+'.json';
+    const data = require(a);
     console.log(data);
     res.json(data);
 });
