@@ -8,11 +8,14 @@
   <body style="display: flex; justify-content: center;">
     <div style="display: block; text-align: center; width: 50%;">
       <div>
-        <label for="text-input">输入汉字 例如: 我们,今天 每一个`是一行</label><br><br>
+        <label for="text-input">输入汉字 <br> 例如: 弯弯的月儿小小的船，`小小的船儿两头尖。`我在小小的船里坐 <br> 半角 `(1左边那个)作为每一行的分隔，标点和空格也算一个字符<br>下面可以填入汉字的表格都可以在这里输入</label><br><br>
         <input style="width:100%;" id="text-input" type="text" placeholder="汉字:">
       </div><br>
       <div>
-        <label for="text-input">输入拼音 例如: di, yi, hang ;  di, er, hang; zhi, chi, yin, diao</label><br><br>
+        <label for="text-input">输入拼音或英文 <br> 例如: 拼音 wan, wan, de, yue, er` Xiao, Xiao, de, chuan<br>
+        半角`作为句子分隔，半角逗号作为拼音分隔，支持带音调的字符，可以任意空格，空格会被忽略掉<br>
+        或输入英文: today is a nice day. ` we are going to play.<br>
+        英文句子首尾的空格会被去掉，但中间的会保留。英文格里识别英文格式，其他识别拼音格式</label><br><br>
         <input style="width:100%;" id="text-pinyin" type="text" placeholder="拼音:">
       </div><br>
       <div>

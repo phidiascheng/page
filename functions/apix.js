@@ -69,6 +69,6 @@ router.get('/pdfsheets', (req, res) => {
     res.sendFile(path.join(__dirname,'../public/htmls','/pdfsheets.html',));
 });
 
-router.get('/b', (req, res) => {
+router.get('/bishunsheets', (req, res) => {
     res.sendFile(path.join(__dirname,'../public/htmls','/bishunsheet.html',));
 });
