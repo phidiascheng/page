@@ -72,14 +72,3 @@ router.get('/pdfsheets', (req, res) => {
 router.get('/b', (req, res) => {
     res.sendFile(path.join(__dirname,'../public/htmls','/bishunsheet.html',));
 });
-
-
-router.get('/hanzi', (req, res) => {
-    var queryData = url.parse(req.url, true).query;
-    char = queryData.char;
-    const a = '../data/hanziwriterdata/'+char+'.json';
-    const data = require(a);
-//    console.log(data);
-    res.json(data);
-});
-
