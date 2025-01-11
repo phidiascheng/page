@@ -79,7 +79,7 @@ router.get('/hanzi', (req, res) => {
     char = queryData.char;
     const a = '../data/hanziwriterdata/'+char+'.json';
     const data = require(a);
-    console.log(data);
+//    console.log(data);
     res.json(data);
 });
 
