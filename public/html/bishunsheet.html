@@ -79,9 +79,8 @@ async function createHanzi() {
         page.drawLine({start: { x: x+size/2, y: y },end: { x: x+size/2, y: y+size},thickness: gridthickness,color:color, dashArray: dashArray,opacity: opacity,});
         page.drawLine({start: { x: x, y: y+size/2 },end: { x: x+size, y: y+size/2},thickness: gridthickness,color:color, dashArray: dashArray,opacity: opacity,});
 
-//        const charData = await fetch("assets/hanzi/"+words[i]+".json")
-//        .then(res => res.json());
-await HanziWriter.loadCharacterData(words[i]).then(function(charData) {
+        const charData = await fetch("assets/hanzi/"+words[i]+".json")
+        .then(res => res.json());
 
         if (j==0){
           var strokes = charData.strokes.slice(0, charData.strokes.length + 1);
@@ -108,8 +107,7 @@ await HanziWriter.loadCharacterData(words[i]).then(function(charData) {
           page.drawSvgPath(stroke,{x:x,y:y+ 90*size/100,scale:0.1*size/100, rotate: degrees(0),borderColor: color,borderWidth:strokethickness});
           })
         }
-      })
-    }
+      }
     }
     page.pushOperators(popGraphicsState());
     const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
