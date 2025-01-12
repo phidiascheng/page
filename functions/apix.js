@@ -62,13 +62,14 @@ router.get('/about', (req, res) => {
 });
 
 router.get('/bishun', (req, res) => {
-    res.sendFile(path.join(__dirname,'../public/htmls','/bishun.html',));
+    res.sendFile(path.join(__dirname,'../public/html','/bishun.html',));
 });
 
 router.get('/pdfsheets', (req, res) => {
-    res.sendFile(path.join(__dirname,'../public/htmls','/pdfsheets.html',));
+    res.sendFile(path.join(__dirname,'../public/html','/pdfsheets.html',));
 });
 
-router.get('/bishunsheets', (req, res) => {
-    res.sendFile(path.join(__dirname,'../public/htmls','/bishunsheet.html',));
+router.get('/t', (req, res) => {
+    res.sendFile(path.join(__dirname,'../public/html','/test.html',));
 });
+
