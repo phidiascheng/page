@@ -81,7 +81,7 @@ async function createHanzi() {
 
 //        const charData = await fetch("assets/hanzi/"+words[i]+".json")
 //        .then(res => res.json());
-await HanziWriter.loadCharacterData('是').then(function(charData) {
+await HanziWriter.loadCharacterData(words[i]).then(function(charData) {
 
         if (j==0){
           var strokes = charData.strokes.slice(0, charData.strokes.length + 1);
