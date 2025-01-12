@@ -42,8 +42,6 @@ async function createHanzi() {
     alert("没有输入任何汉字");
   }
   else{
-
-    ////////
     const pdfDoc = await PDFLib.PDFDocument.create();
     const page = pdfDoc.addPage([297, 210]);
     const color = rgb(0, 0, 0);
@@ -81,34 +79,34 @@ async function createHanzi() {
         page.drawLine({start: { x: x+size/2, y: y },end: { x: x+size/2, y: y+size},thickness: gridthickness,color:color, dashArray: dashArray,opacity: opacity,});
         page.drawLine({start: { x: x, y: y+size/2 },end: { x: x+size, y: y+size/2},thickness: gridthickness,color:color, dashArray: dashArray,opacity: opacity,});
 
-        await HanziWriter.loadCharacterData(words[i]).then(function(charData) {
-          if (j==0){
-            var strokes = charData.strokes.slice(0, charData.strokes.length + 1);
-            strokes.forEach(function(stroke){
-            page.drawSvgPath(stroke,{x:x,y:y+ 90*size/100,scale:0.1*size/100, rotate: degrees(0),borderColor: color, color:color,borderWidth:strokethickness});
-            })
-          }
-          else if (j<=charData.strokes.length) {
-            var strokes = charData.strokes.slice(0, j);
-            var k = 0;
-            strokes.forEach(function(stroke){
-              k++;
-              if (k==strokes.length){
-                page.drawSvgPath(stroke,{x:x,y:y+ 90*size/100,scale:0.1*size/100, rotate: degrees(0),borderColor: color, color:color,borderWidth:strokethickness});
-              }
-              else{
-                page.drawSvgPath(stroke,{x:x,y:y+ 90*size/100,scale:0.1*size/100, rotate: degrees(0),borderColor: color,borderWidth:strokethickness});
-              }
-            });
-          }
-          else {
-            var strokes = charData.strokes.slice(0, charData.strokes.length + 1);
-            strokes.forEach(function(stroke){
-            page.drawSvgPath(stroke,{x:x,y:y+ 90*size/100,scale:0.1*size/100, rotate: degrees(0),borderColor: color,borderWidth:strokethickness});
-            })
-          }
-        })
+        const charData = await fetch("assets/hanzi/"+words[i]+".json")
+        .then(res => res.json());
 
+        if (j==0){
+          var strokes = charData.strokes.slice(0, charData.strokes.length + 1);
+          strokes.forEach(function(stroke){
+          page.drawSvgPath(stroke,{x:x,y:y+ 90*size/100,scale:0.1*size/100, rotate: degrees(0),borderColor: color, color:color,borderWidth:strokethickness});
+          })
+        }
+        else if (j<=charData.strokes.length) {
+          var strokes = charData.strokes.slice(0, j);
+          var k = 0;
+          strokes.forEach(function(stroke){
+            k++;
+            if (k==strokes.length){
+              page.drawSvgPath(stroke,{x:x,y:y+ 90*size/100,scale:0.1*size/100, rotate: degrees(0),borderColor: color, color:color,borderWidth:strokethickness});
+            }
+            else{
+              page.drawSvgPath(stroke,{x:x,y:y+ 90*size/100,scale:0.1*size/100, rotate: degrees(0),borderColor: color,borderWidth:strokethickness});
+            }
+          });
+        }
+        else {
+          var strokes = charData.strokes.slice(0, charData.strokes.length + 1);
+          strokes.forEach(function(stroke){
+          page.drawSvgPath(stroke,{x:x,y:y+ 90*size/100,scale:0.1*size/100, rotate: degrees(0),borderColor: color,borderWidth:strokethickness});
+          })
+        }
       }
     }
     page.pushOperators(popGraphicsState());
@@ -119,5 +117,4 @@ async function createHanzi() {
 }
 
 </script>
-
 </html>

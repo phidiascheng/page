@@ -2,7 +2,8 @@ const express = require('express');
 const json = require('../data/data.json')
 const router = express.Router();
 const path = require('path');
-const url = require('url')
+const url = require('url');
+const fs = require('fs');
 module.exports = router;
 
 var postPerPage = 10;
@@ -67,6 +68,10 @@ router.get('/bishun', (req, res) => {
 
 router.get('/pdfsheets', (req, res) => {
     res.sendFile(path.join(__dirname,'../public/html','/pdfsheets.html',));
+});
+
+router.get('/bishunsheet', (req, res) => {
+    res.sendFile(path.join(__dirname,'../public/html','/bishunsheet.html',));
 });
 
 router.get('/t', (req, res) => {
