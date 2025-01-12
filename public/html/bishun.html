@@ -10,9 +10,9 @@
             <label lang="zh-CN" style="width:100%; font-family: 楷体-简; font-size: 40px;" for="text-input">练习的汉字:</label>
             <br><br>
             <input style="border: solid; border-width: 1px; width:70%; font-family: 楷体-简; font-size: 100px;" id="text-input" type="text" placeholder="输入:">
-            <br><br>
-            <button style="margin-right: 20px; width: 100px; height: 42px; font-family: 楷体-简; font-size: 26px;" onclick="getchar()" id="getchar-button">开始</button>
-            <button style="width: 100px; height: 42px; font-family: 楷体-简; font-size: 26px;" onclick="show()" id="animate-button">演示</button>
+            <br><br><br><br>
+<!--            <button style="margin-right: 20px; width: 100px; height: 42px; font-family: 楷体-简; font-size: 26px;" onclick="getchar()" id="getchar-button">开始</button>-->
+            <button style="width: 100px; height: 48px; font-family: 楷体-简; font-size: 30px;" onclick="show()" id="animate-button">演示</button>
     <br><br>
         </div>
         <div style="width: 40%; ">
@@ -81,7 +81,14 @@ async function demo(char){
     function show(){
         writer.animateCharacter();
     }
-    
+
+const inputElement = document.getElementById('text-input');
+inputElement.addEventListener('input',(event) => {
+    getchar();
+//    demo(char);
+});
+
+
 </script>
 
 </html>
