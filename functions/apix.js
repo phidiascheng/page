@@ -78,9 +78,12 @@ router.get('/calc', (req, res) => {
 });
 
 router.get('/t', (req, res) => {
+    res.sendFile(path.join(__dirname,'../public/html','/test.html',));
+});
+
+
+router.get('/gethanzi', (req, res) => {
     const hanzi = require('../data/hanzi.json');
-    var keys = Object.keys(hanzi);
-    console.log(keys[9000]);
-    res.json({"j":keys[9000]});
-//    res.sendFile(path.join(__dirname,'../public/html','/calculator.html',));
+    const char = req.query.char;
+    res.json(hanzi[char]);
 });
