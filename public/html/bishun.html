@@ -62,8 +62,8 @@ async function demo(char){
         document.getElementById('character-target-div').innerHTML = "";
         writer = HanziWriter.create('character-target-div', char, {
             charDataLoader: function(char, onComplete) {
-            $.getJSON("assets/hanzi/" + char + ".json", 
-//            $.getJSON("/gethanzi?char=" + char, 
+//            $.getJSON("assets/hanzi/" + char + ".json", 
+            $.getJSON("/gethanzi?char=" + char, 
             function(charData) {
                 onComplete(charData);
             });

@@ -81,8 +81,8 @@ async function createHanzi() {
         page.drawLine({start: { x: x+size/2, y: y },end: { x: x+size/2, y: y+size},thickness: gridthickness,color:color, dashArray: dashArray,opacity: opacity,});
         page.drawLine({start: { x: x, y: y+size/2 },end: { x: x+size, y: y+size/2},thickness: gridthickness,color:color, dashArray: dashArray,opacity: opacity,});
 
-        const charData = await fetch("assets/hanzi/"+words[i]+".json")
-//        const charData = await fetch("/gethanzi?char="+words[i])
+//        const charData = await fetch("assets/hanzi/"+words[i]+".json")
+        const charData = await fetch("/gethanzi?char="+words[i])
         .then(res => res.json());
 
         if (j==0){
