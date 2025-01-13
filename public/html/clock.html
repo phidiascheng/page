@@ -1,0 +1,130 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="js/pdf-lib.min.js"></script>
+    <script src="js/fontkit.umd.min.js"></script>
+  </head>
+
+  <body style="display: flex; justify-content: center; ">
+    <div >
+        <div style="display: flex; justify-content: center;"><button style="font-size: 20px;" id="createPDFFile" onclick="createClock()">生成时钟</button></div>
+        <br>
+      <div><iframe id="pdf" style="width:1080px; height: 80%; display: none;"></iframe></div>
+    </div>
+  </body>
+
+
+
+
+  <script>
+    const { PDFDocument, StandardFonts, rgb } = PDFLib
+    const thickness = 0.2;
+    const color = rgb(0, 0, 0);
+    const dashArray = [1, 0.5];
+    const opacity = 0.75;
+    const pi = 3.1415926535;
+
+    async function createClock() {
+      const pdfDoc = await PDFLib.PDFDocument.create();
+      const page = pdfDoc.addPage([297, 210]);
+      const R = 20;
+      const r = 1;
+      const Lh = 9;
+      const Lm = 15;
+      const Ln = 17;
+      const MarkM = 1;
+      const Markm = 1;
+      const startx = 13.5;
+      const dx = 54;
+      const dy = 63;
+      const starty = 10.5;
+
+      for (let i = 0; i<5; i++){
+        for (let j = 0; j<3; j++){
+          let x = startx + i*dx + 0.5*dx;
+          let y = starty + j*dy + 0.5*dy;
+          page.drawCircle({x: x, y: y, size: r, borderWidth: thickness, borderColor: color, color:color});
+          page.drawCircle({x: x, y: y, size: R, borderWidth: thickness, borderColor: color});
+
+          for(let k = 0; k<60; k++){
+            const theta = k/30*pi;
+            const xs = x + (R-Markm)*Math.sin(theta);
+            const ys = y + (R-Markm)*Math.cos(theta);
+            const xe = x + R*Math.sin(theta);
+            const ye = y + R*Math.cos(theta);
+            if(k%15 ==0){
+              const xs = x + (R-MarkM*1.5)*Math.sin(theta);
+              const ys = y + (R-MarkM*1.5)*Math.cos(theta);
+              page.drawLine({start: { x: xs, y: ys },end: { x: xe, y: ye },thickness: thickness*4,color: color,opacity: opacity,});
+            }
+            else if (k%5 == 0) {
+              const xs = x + (R-MarkM)*Math.sin(theta);
+              const ys = y + (R-MarkM)*Math.cos(theta);
+              page.drawLine({start: { x: xs, y: ys },end: { x: xe, y: ye },thickness: thickness*3,color: color,opacity: opacity,});
+            }
+            else{
+              const xs = x + (R-Markm)*Math.sin(theta);
+              const ys = y + (R-Markm)*Math.cos(theta);
+              page.drawLine({start: { x: xs, y: ys },end: { x: xe, y: ye },thickness: thickness,color: color,opacity: opacity,});
+            }
+          }
+          var hour = Math.floor(Math.random() * 12);
+          var min = Math.floor(Math.random() * 60);
+
+          const thetaM = min/30*pi;
+          const thetaH = hour/6*pi + min/60*1/6*pi;
+          const thetaMR  = thetaM + pi/2;
+          const thetaML  = thetaM - pi/2;
+          const thetaHR  = thetaH + pi/2;
+          const thetaHL  = thetaH - pi/2;
+
+          const xHa = 0 + Lh*Math.sin(thetaH);
+          const yHa = 0 - Lh*Math.cos(thetaH);
+          const xHb = 0 + r*Math.sin(thetaHL);
+          const yHb = 0 - r*Math.cos(thetaHL);
+          const xHc = 0 + r*Math.sin(thetaHR);
+          const yHc = 0 - r*Math.cos(thetaHR);
+          const pathH = 'M '+xHa+' '+yHa+' L '+xHb+' '+yHb+' L '+xHc+' '+yHc+' Z';
+          page.drawSvgPath(pathH, { x: x, y: y,borderWidth: thickness,borderColor: color,color: color,});
+
+          const xMa = 0 + Lm*Math.sin(thetaM);
+          const yMa = 0 - Lm*Math.cos(thetaM);
+          const xMb = 0 + r*Math.sin(thetaML);
+          const yMb = 0 - r*Math.cos(thetaML);
+          const xMc = 0 + r*Math.sin(thetaMR);
+          const yMc = 0 - r*Math.cos(thetaMR);
+          const pathM = 'M '+xMa+' '+yMa+' L '+xMb+' '+yMb+' L '+xMc+' '+yMc+' Z';
+          page.drawSvgPath(pathM, { x: x, y: y,borderWidth: thickness,borderColor: color,color: color,});
+
+          for (let k=0; k<12; k++){
+            const thetaN = (k)/6*pi;
+            const xc = x + Ln*Math.sin(thetaN);
+            const yc = y + Ln*Math.cos(thetaN);
+            fontsize = 3;
+
+            const font = await pdfDoc.embedFont(StandardFonts.CourierBold);
+            var textWidth = font.widthOfTextAtSize(k.toString(), fontsize);
+            var xx = xc - textWidth / 2;
+            var yy = yc - fontsize / 2 + fontsize/7;
+
+            page.moveTo(xx, yy);
+            page.drawText(k.toString(),{size: fontsize,font: font});
+          }
+
+
+        }
+      }
+
+//      pdfDoc.registerFontkit(fontkit);
+//      var urlKai = "assets/华文楷体.ttf";
+//      var fontBytesKai = await fetch(urlKai).then((res) => res.arrayBuffer());
+//      const fontKai = await pdfDoc.embedFont(fontBytesKai);
+
+
+      const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
+      document.getElementById('pdf').src = pdfDataUri;
+      document.getElementById('pdf').style.display = "";
+    }
+
+</script>
+</html>

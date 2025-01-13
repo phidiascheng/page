@@ -87,3 +87,7 @@ router.get('/gethanzi', (req, res) => {
     const char = req.query.char;
     res.json(hanzi[char]);
 });
+
+router.get('/clock', (req, res) => {
+    res.sendFile(path.join(__dirname,'../public/html','/clock.html',));
+});
