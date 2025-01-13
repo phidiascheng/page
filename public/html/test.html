@@ -1,92 +1,105 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <script src="js/hanzi-writer.min.js"></script>
-    <script src="js/jquery.min.js"></script>
+    <script src="js/pdf-lib.min.js"></script>
+    <script src="js/fontkit.umd.min.js"></script>
   </head>
-  <body>
-    <div style="display: flex; justify-content: center; width: 100%; height: 600px; align-items: center;">
-        <div style="width: 30%; text-align: center;">
-            <label lang="zh-CN" style="width:100%; font-family: 楷体-简; font-size: 40px;" for="text-input">练习的汉字:</label>
-            <br><br>
-            <input style="border: solid; border-width: 1px; width:70%; font-family: 楷体-简; font-size: 100px;" id="text-input" type="text" placeholder="输入:">
-            <br><br><br><br>
-            <button style="width: 100px; height: 48px; font-family: 楷体-简; font-size: 30px;" onclick="show()" id="animate-button">演示</button>
-    <br><br>
+
+  <body style="display: flex; justify-content: center;">
+    <div style="display: block; text-align: center; width: 50%;">
+      <div>
+        <div style="display: flex;">
+          <div style="display: block; text-align: left;">
+        <p>选择范围:</p>
+        <input type="radio" id="m1" name="maximum" value="10"  checked="checked" >
+        <label for="m1">10以内</label><br>
+        <input type="radio" id="m2" name="maximum" value="20">
+        <label for="m2">20以内</label><br>  
+        <input type="radio" id="m3" name="maximum" value="100">
+        <label for="m3">100以内</label>
         </div>
-        <div style="width: 40%; ">
-            <div id="character-target-div" style="width: 500px; height: 500px; border: solid; border-width: 0.4px;"></div>
+        <div style="width: 50px;"></div>
+        <div style="display: block; text-align: left;">
+          <p>选择算法:</p>
+        <input type="radio" id="c1" name="calc" value="add"  checked="checked" >
+        <label for="c1">仅加法</label><br>
+        <input type="radio" id="c2" name="calc" value="addplus">
+        <label for="c2">加减混合</label><br>
+        <input type="radio" id="c2" name="calc" value="multi">
+        <label for="c2">仅乘法</label><br>
+        <input type="radio" id="c2" name="calc" value="multiplus">
+        <label for="c2">乘除混合</label>
         </div>
+        </div> 
+        <button style="font-size: 20px;" id="createCalcPDFFile" onclick="createCalc()">生成加减法练习</button>
+      <div><iframe id="pdf" style="width:60%; height: 80%; display: none;"></iframe></div>
     </div>
   </body>
 
   <script>
+    const { PDFDocument, StandardFonts, rgb } = PDFLib
+    const thickness = 0.2;
+    const color = rgb(0, 0, 0);
+    const dashArray = [1, 0.5];
+    const opacity = 0.75;
 
-async function test() {
-    let a = '我';
-    const url = "assets/hanzi/"+a+".json";
-    const response = await fetch(url)
-    .then(res => res.text())
-    .then(data => alert(data));
-}
 
-    var words = "";
-    var writer;
-    function getchar(){
-        const word =document.getElementById('text-input').value;
-        words = "";
-        var re= RegExp("^[A-Za-z0-9]+$"); //英文和数字
-        var re1=RegExp("^[\u4E00-\u9FA5A-Za-z0-9]+$");// 汉字、英文、数字
-        for (let char of word){
-            if (re.test(char) || !re1.test(char)){
-                // 不是汉字 pass
+    async function createCalc() {
+      const pdfDoc = await PDFLib.PDFDocument.create();
+      const page = pdfDoc.addPage([210, 297]);
+      const startx = 20;
+      const starty = 20;
+      const dx = 42.5;
+      const dy = 15;
+ 
+      var max = document.querySelector('input[name=maximum]:checked').value;
+      var calc = document.querySelector('input[name=calc]:checked').value;
+      const CourierBold = await pdfDoc.embedFont(StandardFonts.CourierBold);
+
+      for (let i=0;i<4;i++){
+        for (let j=0; j<18; j++){
+          var typ = Math.random()-0.5;
+
+          var a = Math.floor(Math.random() * max);
+          var b = Math.floor(Math.random() * (max - a + 1));
+          var sum = a + b;
+          page.moveTo(startx+i*dx, 297-(starty+j*dy));
+
+          var ma = Math.floor(Math.random() * max) + 1;
+          var mb = Math.floor(Math.random() * max);
+          var prod  = ma * mb;
+
+          if(calc =="add"){
+            page.drawText(a+'+'+b+'=',{size: 6,font: CourierBold,});
+          }
+          else if (calc =="addplus") {
+            if(typ >= 0){
+              page.drawText(a+'+'+b+'=',{size: 6,font: CourierBold,});
             }
             else{
-                words = words + char;
+              page.drawText(sum+'-'+a+'=',{size: 6,font: CourierBold,});
             }
+          }
+          else if (calc =="multi"){
+            page.drawText(a+'×'+b+'=',{size: 6,font: CourierBold,});
+          }
+          else{
+            if(typ >= 0){
+              page.drawText(ma+'×'+mb+'=',{size: 6,font: CourierBold,});
+            }
+            else{
+              page.drawText(prod+'÷'+ma+'=',{size: 6,font: CourierBold,});
+            }
+          }
         }
-        if(words == ""){
-            // 没有输入任何汉字
-        }
-        else{
-            words = words[0]; //取第一个汉字        
-        }
-        demo(words);
-        show();
-    }    
-    
-    
+      }
 
 
-async function demo(char){
-        document.getElementById('character-target-div').innerHTML = "";
-        writer = HanziWriter.create('character-target-div', char, {
-            charDataLoader: function(char, onComplete) {
-            $.getJSON("/gethanzi?char=" + char, 
-            function(charData) {
-                onComplete(charData);
-            });
-            },
-
-            width: 500,
-            height: 500,
-            padding: 5,
-            showOutline: true,
-            strokeAnimationSpeed: 1.2,
-        });
+      const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
+      document.getElementById('pdf').src = pdfDataUri;
+      document.getElementById('pdf').style.display = "";
     }
-    
-function show(){
-    writer.animateCharacter();
-}
-
-const inputElement = document.getElementById('text-input');
-inputElement.addEventListener('input',(event) => {
-    getchar();
-//    demo(char);
-});
 
 
-</script>
-
+  </script>
 </html>
