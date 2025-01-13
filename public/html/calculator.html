@@ -1,0 +1,105 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="js/pdf-lib.min.js"></script>
+    <script src="js/fontkit.umd.min.js"></script>
+  </head>
+
+  <body style="display: flex; justify-content: center;">
+    <div style="display: block; text-align: center; width: 50%;">
+      <div>
+        <div style="display: flex;">
+          <div style="display: block; text-align: left;">
+        <p>选择范围:</p>
+        <input type="radio" id="m1" name="maximum" value="10"  checked="checked" >
+        <label for="m1">10以内</label><br>
+        <input type="radio" id="m2" name="maximum" value="20">
+        <label for="m2">20以内</label><br>  
+        <input type="radio" id="m3" name="maximum" value="100">
+        <label for="m3">100以内</label>
+        </div>
+        <div style="width: 50px;"></div>
+        <div style="display: block; text-align: left;">
+          <p>选择算法:</p>
+        <input type="radio" id="c1" name="calc" value="add"  checked="checked" >
+        <label for="c1">仅加法</label><br>
+        <input type="radio" id="c2" name="calc" value="addplus">
+        <label for="c2">加减混合</label><br>
+        <input type="radio" id="c2" name="calc" value="multi">
+        <label for="c2">仅乘法</label><br>
+        <input type="radio" id="c2" name="calc" value="multiplus">
+        <label for="c2">乘除混合</label>
+        </div>
+        </div> 
+        <button style="font-size: 20px;" id="createCalcPDFFile" onclick="createCalc()">生成加减法练习</button>
+      <div><iframe id="pdf" style="width:60%; height: 80%; display: none;"></iframe></div>
+    </div>
+  </body>
+
+  <script>
+    const { PDFDocument, StandardFonts, rgb } = PDFLib
+    const thickness = 0.2;
+    const color = rgb(0, 0, 0);
+    const dashArray = [1, 0.5];
+    const opacity = 0.75;
+
+
+    async function createCalc() {
+      const pdfDoc = await PDFLib.PDFDocument.create();
+      const page = pdfDoc.addPage([210, 297]);
+      const startx = 20;
+      const starty = 20;
+      const dx = 42.5;
+      const dy = 15;
+ 
+      var max = document.querySelector('input[name=maximum]:checked').value;
+      var calc = document.querySelector('input[name=calc]:checked').value;
+      const CourierBold = await pdfDoc.embedFont(StandardFonts.CourierBold);
+
+      for (let i=0;i<4;i++){
+        for (let j=0; j<18; j++){
+          var typ = Math.random()-0.5;
+
+          var a = Math.floor(Math.random() * max);
+          var b = Math.floor(Math.random() * (max - a + 1));
+          var sum = a + b;
+          page.moveTo(startx+i*dx, 297-(starty+j*dy));
+
+          var ma = Math.floor(Math.random() * max) + 1;
+          var mb = Math.floor(Math.random() * max);
+          var prod  = ma * mb;
+
+          if(calc =="add"){
+            page.drawText(a+'+'+b+'=',{size: 6,font: CourierBold,});
+          }
+          else if (calc =="addplus") {
+            if(typ >= 0){
+              page.drawText(a+'+'+b+'=',{size: 6,font: CourierBold,});
+            }
+            else{
+              page.drawText(sum+'-'+a+'=',{size: 6,font: CourierBold,});
+            }
+          }
+          else if (calc =="multi"){
+            page.drawText(a+'×'+b+'=',{size: 6,font: CourierBold,});
+          }
+          else{
+            if(typ >= 0){
+              page.drawText(ma+'×'+mb+'=',{size: 6,font: CourierBold,});
+            }
+            else{
+              page.drawText(prod+'÷'+ma+'=',{size: 6,font: CourierBold,});
+            }
+          }
+        }
+      }
+
+
+      const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
+      document.getElementById('pdf').src = pdfDataUri;
+      document.getElementById('pdf').style.display = "";
+    }
+
+
+  </script>
+</html>

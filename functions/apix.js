@@ -74,7 +74,7 @@ router.get('/bishunsheet', (req, res) => {
     res.sendFile(path.join(__dirname,'../public/html','/bishunsheet.html',));
 });
 
-router.get('/t', (req, res) => {
-    res.sendFile(path.join(__dirname,'../public/html','/test.html',));
+router.get('/calc', (req, res) => {
+    res.sendFile(path.join(__dirname,'../public/html','/calculator.html',));
 });
 
