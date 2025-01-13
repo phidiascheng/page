@@ -3,7 +3,6 @@ const json = require('../data/data.json')
 const router = express.Router();
 const path = require('path');
 const url = require('url');
-const fs = require('fs');
 module.exports = router;
 
 var postPerPage = 10;
@@ -78,3 +77,10 @@ router.get('/calc', (req, res) => {
     res.sendFile(path.join(__dirname,'../public/html','/calculator.html',));
 });
 
+router.get('/t', (req, res) => {
+    const hanzi = require('../data/hanzi.json');
+    var keys = Object.keys(hanzi);
+    console.log(keys[9000]);
+    res.json({"j":keys[9000]});
+//    res.sendFile(path.join(__dirname,'../public/html','/calculator.html',));
+});
