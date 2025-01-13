@@ -8,11 +8,11 @@
     <div style="display: flex; justify-content: center; width: 100%; ">
         <div style="width: 50%;">
             <div>
-              <label for="text-input">输入汉字 最多13个汉字</label><br><br>
+              <label for="text-input">输入汉字 最多12个汉字</label><br><br>
               <input style="width:100%;" id="text-input" type="text" placeholder="汉字:">
             </div><br>
             <div>
-              <button style="font-size: 20px;" id="createPDFFile" onclick="createHanzi()">生成田字格</button>
+              <button style="font-size: 20px;" id="createPDFFile" onclick="createHanzi()">生成笔顺</button>
             </div>
 
 
@@ -58,7 +58,9 @@ async function createHanzi() {
     let startx = 12;
     let starty = 10;
     let size = 14;
+    let charNum = 12;
     if(words.length < 12){
+      charNum = words.length;
       starty = (210-14*words.length-2*(words.length-1))/2;
     }
 
