@@ -134,3 +134,19 @@
     color: #12183A;
 }
 
+a:link { 
+    text-decoration: none; 
+    color: rgb(50, 50, 50);
+  } 
+  a:visited { 
+    text-decoration: none; 
+    color: rgb(50, 50, 50);
+  } 
+  a:hover { 
+    text-decoration: none; 
+    color: rgb(50, 50, 50);
+  } 
+  a:active { 
+    text-decoration: none; 
+    color: rgb(50, 50, 50);
+  }

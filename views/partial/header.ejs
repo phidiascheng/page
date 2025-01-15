@@ -1,12 +1,42 @@
 <div class="header">
-    <div class="title">家庭作业</div>
-    <div class="subheader">
-        <div><a href="/"><h5>博客列表</h5></a></div>
-        <div><a href="/about"><h5>关于我的</h5></a></div>
-        <div><a href="/bishun"><h5>笔顺演示</h5></a></div>
-        <div><a href="/bishunsheet"><h5>笔顺练习</h5></a></div>
-        <div><a href="/pdfsheets"><h5>写字练习</h5></a></div>
-        <div><a href="/calc"><h5>加减练习</h5></a></div>
-        <div><a href="/clock"><h5>时钟练习</h5></a></div>
+    <div class="header-top">
+        <div class="h-left"><a href="/"><img src="./img/logo.png" alt="Quiet"></a></div>
+
+        <div class="h-right">
+            <ul>
+                <%  if (headerpage == 'work') {tagwork = 'select'; tagabout = ''; tagblog = '';}
+                else if(headerpage == 'about') {tagabout = 'select'; tagwork = ''; tagblog = ''}  
+                else {tagblog = 'select'; tagabout = ''; tagwork = '';} %>
+
+                <li class="<%= tagblog %>"><a href="/">博客</a><span class="dot"></span></li>
+                <li class="<%= tagabout %> "><a href="/about">关于我</a><span class="dot"></span></li>
+                <li class="<%= tagwork %> "><a href="/work">作业练习</a><span class="dot"></span></li>
+            </ul>
+        </div>
+        
+        <!-- 页面很窄时右侧菜单按钮-->
+        <div class="h-right-close">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+        <path fill="none" d="M0 0h24v24H0z" />
+        <path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" fill="rgba(68,68,68,1)" />
+        </svg>
+        </div>
+        
     </div>
 </div>
+
+<!-- 页面滚动超过100时导航栏变窄动画 -->
+<script>
+    $(function () { 
+        $(window).scroll(function () { 
+            if ($(document).scrollTop() > 100) { 
+                $(".header-top").removeClass("header-move2"); 
+                $('.header-top').addClass('header-move1') 
+                } 
+            else { 
+                $(".header-top").removeClass("header-move1"); 
+                $('.header-top').addClass('header-move2') 
+            } 
+        }) 
+    });
+</script>

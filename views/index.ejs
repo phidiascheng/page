@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+    <%- include ('partial/head.ejs') %>
+
+	<body>
+
+        <%- include ('partial/header.ejs') %>
+	
+        <%- include ('partial/sidebar.ejs') %>
+
+
+
+        <% if (filename == 'main_list') { %>
+
+            <%- include ('partial/main_list.ejs') %>
+
+        <% } else if (filename == 'about') { %>
+
+            <%- include ('partial/about.ejs') %>
+
+        <% } else if (filename == 'work') {%>
+        
+            <%- include ('partial/work.ejs') %>
+
+        <% } else if (filename == 'main_passage') {%>
+        
+            <%- include ('partial/main_passage.ejs') %>
+
+        <% } %>
+
+	</body>
+</html>

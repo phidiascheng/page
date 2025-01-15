@@ -17,8 +17,10 @@ router.get('/blog', (req, res) => {
         json:json,
         passageID:passageID,
         plist:plist,
+        filename:'main_passage',
+        headerpage:'blog'
     }
-    res.render('n_passage',setting);
+    res.render('index',setting);
 });
 
 router.get('/bloglist', (req, res) => {
@@ -33,13 +35,19 @@ router.get('/bloglist', (req, res) => {
         passageStart:passageStart,
         passageEnd:passageEnd,
         pageEnd:pageEnd,
-        postPerPage:postPerPage
+        postPerPage:postPerPage,
+        filename:'main_list',
+        headerpage:'blog'
     }
-    res.render('n_loadList',setting);
+    res.render('index',setting);
 });
 
 router.get('/about', (req, res) => {
-    res.render('n_about');
+    setting = {
+        filename:'about',
+        headerpage:'about'
+    }
+    res.render('index',setting);
 });
 
 router.get('/bishun', (req, res) => {
@@ -70,9 +78,11 @@ router.get('/', (req, res) => {
         passageStart:passageStart,
         passageEnd:passageEnd,
         pageEnd:pageEnd,
-        postPerPage:postPerPage
+        postPerPage:postPerPage,
+        filename:'main_list',
+        headerpage:'blog'
     }
-    res.render('n_index',setting);
+    res.render('index',setting);
 });
 
 
@@ -87,5 +97,9 @@ router.get('/clock', (req, res) => {
 });
 
 router.get('/work', (req, res) => {
-    res.render('n_work');
+    setting = {
+        filename:'work',
+        headerpage:'work'
+    }
+    res.render('index',setting);
 });
