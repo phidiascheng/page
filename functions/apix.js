@@ -18,7 +18,7 @@ router.get('/blog', (req, res) => {
         passageID:passageID,
         plist:plist,
     }
-    res.render('loadPassage',setting);
+    res.render('n_passage',setting);
 });
 
 router.get('/bloglist', (req, res) => {
@@ -35,30 +35,11 @@ router.get('/bloglist', (req, res) => {
         pageEnd:pageEnd,
         postPerPage:postPerPage
     }
-    res.render('loadList',setting);
-});
-
-
-
-router.get('/', (req, res) => {
-    var passageStart = 0;
-    var passageEnd = postPerPage;
-    if (json.blogs.length < postPerPage){
-        passageEnd = json.blogs.length;
-    }
-    var page = 0;
-    setting = {
-        json:json,
-        passageStart:passageStart,
-        passageEnd:passageEnd,
-        pageEnd:pageEnd,
-        postPerPage:postPerPage
-    }
-    res.render('loadList',setting);
+    res.render('n_loadList',setting);
 });
 
 router.get('/about', (req, res) => {
-    res.render('loadAbout');
+    res.render('n_about');
 });
 
 router.get('/bishun', (req, res) => {
@@ -77,8 +58,21 @@ router.get('/calc', (req, res) => {
     res.sendFile(path.join(__dirname,'../public/html','/calculator.html',));
 });
 
-router.get('/t', (req, res) => {
-    res.sendFile(path.join(__dirname,'../public/html','/test.html',));
+router.get('/', (req, res) => {
+    var passageStart = 0;
+    var passageEnd = postPerPage;
+    if (json.blogs.length < postPerPage){
+        passageEnd = json.blogs.length;
+    }
+    var page = 0;
+    setting = {
+        json:json,
+        passageStart:passageStart,
+        passageEnd:passageEnd,
+        pageEnd:pageEnd,
+        postPerPage:postPerPage
+    }
+    res.render('n_index',setting);
 });
 
 
@@ -90,4 +84,8 @@ router.get('/gethanzi', (req, res) => {
 
 router.get('/clock', (req, res) => {
     res.sendFile(path.join(__dirname,'../public/html','/clock.html',));
+});
+
+router.get('/work', (req, res) => {
+    res.render('n_work');
 });

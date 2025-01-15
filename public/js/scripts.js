@@ -1,12 +1,15 @@
-function showmore(element){
+async function showmore(element){
     var id = element.getAttribute("para");
-    currentClass = document.getElementById(id).className;
-    if (currentClass == "bodylist"){
-        document.getElementById(id).className = "bodypassage";
+    var target = document.getElementById(id);
+    currentClass = target.className;
+    if (element.innerHTML == "..展开.."){
+        $('#'+id).removeClass('hidebox');
         element.innerHTML = "..收起..";
     }
     else{
-        document.getElementById(id).className = "bodylist";
-        element.innerHTML = "..展开..";
+        $('#'+id).addClass('hidebox');
+        setTimeout(() => { 
+            element.innerHTML = "..展开.."; 
+        },800);   
     }
 }
